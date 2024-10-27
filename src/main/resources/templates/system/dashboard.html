@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <div th:replace="fragments/scripts::scripts">scripts</div>
+
+<body>
+<div th:replace="fragments/header::header">header</div>
+<div class="wrapper">
+    <div th:replace="fragments/navbars::sidebar">header</div>
+    <div id="content" style="width: 100%;overflow:hidden;!important;">
+        <div th:replace="fragments/navbars::navbar">header</div>
+
+
+    </div>
+</div>
+</body>
+</html>
+<style>
+    h2 {
+        color: grey;
+    }
+
+    p {
+        color: lightslategray;
+    }
+
+    .profile-img-card {
+        /*width: 200px;*/
+        /*height: 200px;*/
+        /*margin: 0 auto 10px;*/
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+
+</style>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" xmlns="">
+<head>
+    <meta charset="UTF-8">
+    <title>invoice create</title>
+    <div th:replace="fragments/scripts::scripts">scripts</div>
+    <link rel="shortcut icon" href="/images/logo.jpg"/>
+</head>
+
+<style>
+    .palel-primary {
+        border-color: #bce8f1;
+    }
+
+    .panel-primary > .panel-heading {
+        background: #bce8f1;
+
+    }
+
+    .panel-primary > .panel-body {
+        background-color: #EDEDED;
+    }
+</style>
+
+<div th:replace="fragments/header::header">header</div>
+<div class="wrapper">
+    <div th:replace="fragments/navbars::sidebar">header</div>
+    <div id="content" style="width: 100%;overflow:inherit;!important;">
+        <div th:replace="fragments/navbars::navbar">header</div>
+        <div class="container-fluid" style="padding-top: 100px" ng-app="invoiceApp" ng-controller="invoiceController">
+            <h3 class="page-heading mb-4">Invoice</h3>
+            <div class="row mb-2">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12" for="customer">customer</label>
+                                    <div class="row" ng-show="customer == null">
+                                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                            <input id="customer" class="form-control"
+                                                   ng-model="customer_"
+                                                   ng-keyup="searchCustomer($event,customer_, $index)"
+                                                   autocomplete="nope"/>
+
+                                            <ul class="chat autocomplete" style="width: 500px"
+                                                ng-if="customer_data.length > 0">
+                                                <li ng-repeat="y in customer_data"
+                                                    ng-class="{'item-active': $index == customerCursor}"
+                                                    style="margin: 0; padding: 5px 5px 5px 5px">
+                                                    <a ng-click="selectCustomer(y, $index)">
+                                                        <div class="chat-body clearfix">
+                                                            <div class="header">
+                                                                <h6 style="margin-bottom: 0;"><b>{{ y.firstName
+                                                                    }} </b> - {{y.lastName}}</h6>
+                                                            </div>
+
+                                                            <div>
+                                                                <small>
+                                                                    {{ y.address}}
+                                                                    <b class="small">{{y.mobileNo}}</b>
+                                                                </small>
+                                                            </div>
+
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row col-xs-12" ng-show="customer != null">
+                                        <h4>{{customer.firstName}}
+                                            <small>{{customer.lastName}} <i><a href="#" ng-click="customer = null"
+                                                                               style="text-decoration-line: underline">(change)</a></i>
+                                            </small>
+                                        </h4>
+                                        <p>{{customer.address}}, {{customer.mobileNo}}</p>
+                                        <input type="hidden" th:name="customer" ng-value="customer.id">
+                                    </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <input class="btn btn-outline-primary" data-target="#customer1" data-toggle="modal"
+                                           type="button" value="+ New">
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12" for="customer">date</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                        <input type="text" class="form-control" id="date">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12" for="Invoice">Invoice</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                        <input type="text" class="form-control" id="Invoice">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="col-xl-12">
+                                <table class="table table-bordered small" id="ic">
+                                    <tbody>
+                                    <tr>
+                                        <th width="275">ITEM</th>
+                                        <th width="50" class="text-right">QTY</th>
+                                        <th width="50" class="text-right">UNIT PRICE</th>
+                                        <th width="70" class="text-right">TOTAL</th>
+                                        <th width="10"></th>
+                                    </tr>
+                                    </tbody>
+                                    <tr ng-repeat="">
+
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="modal" id="customer1" role="dialog" style="margin-top: 8%">
+                                <form action="" id="customer_form" method="post" class="ng-pristine ng-valid">
+                                    <div class="modal-dialog">
+
+                                        <!-- customer Modal content-->
+
+                                        <div class="modal-content">
+
+                                            <h4 style="margin-top: 25px;margin-bottom: 20px"
+                                                class="modal-title col-sm-10">Create Supplier</h4>
+                                            <div class="modal-body">
+                                                <input name="status" type="hidden" value="1">
+                                                <input class="form-control" id="customer_name" name="customer_name"
+                                                       placeholder="First Name" type="text">
+                                                <span class="text-danger" id="error_cusname"></span><br>
+
+                                                <input class="form-control" id="last_name" name="last_name"
+                                                       placeholder="Last Name" type="text">
+                                                <span class="text-danger" id="error_lastname"></span><br>
+
+                                                <input class="form-control" id="address" name="address"
+                                                       placeholder="Addres" type="text">
+                                                <span class="text-danger" id="error_age"></span><br>
+
+                                                <select name="gender" id="gender" class="form-control">
+                                                    <option value="0">GENDER</option>
+                                                    <option value="1">MALE</option>
+                                                    <option value="2">FEMALE</option>
+                                                </select>
+
+                                                <input style="margin-top: 20px" class="form-control" id="phone"
+                                                       name="creditLimit"
+                                                       placeholder="Phone Number" type="text">
+                                                <span class="text-danger" id="error_phone"></span><br>
+
+                                                <input class="form-control" id="remark" name="remark"
+                                                       placeholder="Discription" type="text">
+                                                <span class="text-danger" id="error_remark"></span><br>
+
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-default btn-xs" data-dismiss="modal"
+                                                            id="savesup" ng-click="saveCustomer()" type="button">save
+                                                    </button>
+                                                    <button class="btn btn-default btn-xs" data-dismiss="modal"
+                                                            type="button">colse
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+<script th:inline="javascript">
+
+    var app = angular.module('invoiceApp', []);
+
+    app.controller('invoiceController', function ($scope, $http, $filter) {
+
+
+        $scope.customer_data = [];
+        $scope.customerCursor = 0;
+
+        $scope.item_cart = [];
+
+        $scope.searchCustomer = function (e, keyword, index) {
+            e.preventDefault();
+            switch (e.which) {
+                case 27 : {
+                    $scope.customer_data.splice(0, $scope.customer_data.length);
+                    $('#keyword_' + index).val("");
+                }
+
+                    break;
+                case 38 : {
+
+                    if ($scope.customerCursor > 0) {
+                        $scope.customerCursor -= 1;
+                    }
+                }
+                    break;
+                case 40 : {
+                    if ($scope.customer_data.length - 1 > $scope.customerCursor) {
+                        $scope.customerCursor += 1;
+                    }
+                }
+
+                    break;
+                case 13 : {
+                    $scope.selectCustomer($scope.customer_data[$scope.customerCursor], index);
+                    $scope.customerCursor = 0;
+                }
+                    break;
+                default: {
+                    $scope.customer_data = [];
+                    $http({
+                        url: '/api/get_customers?code=' + keyword
+                    }).then(function (response) {
+                        console.log(response)
+                        $scope.customer_data = response.data;
+                    })
+                }
+            }
+            return false;
+        }
+
+        $scope.selectCustomer = function (item, index) {
+            $scope.customer = item;
+            console.log($scope.customer)
+        };
+
+    });
+</script>
+</body>
+
+</html>

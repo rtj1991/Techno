@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<th:block th:fragment="sidebar">
+    <nav id="sidebar" th:class="${session.user.menuCollapse ? 'active' : ''}">
+        <div class="sidebar-header" style="position: fixed;z-index: 100">
+            <h3>Techno</h3>
+            <strong><img style="max-height: 43px;max-width: 43px;margin-right: 160px" th:src="@{/images/logo1.jpg}"
+                         alt=""></strong>
+
+        </div>
+
+        <ul style="padding-top: 100px" class="list-unstyled components" th:if="${not #lists.isEmpty(session.modules)}">
+            <li th:each="row : ${session.modules}">
+
+                <a th:if="${row.statusRedirect ne T(com.tech.techno.util.Const).STATUS_REDIRECT && row.statusRedirect ne T(com.tech.techno.util.Const).STATUS_VISIBILITY}"
+                   th:href="${row.statusRedirect eq T(com.tech.techno.util.Const).STATUS_REDIRECT ? row.route : '#menu_'+row.id }"
+                   data-toggle="collapse" aria-expanded="false">
+                    <!--<i th:class="${row.faIcon}"></i>-->
+                    <img style="max-height: 20px;max-width: 20px" th:src="${row.faIcon}" alt="">
+                    <span th:text="${row.module}"></span>
+                </a>
+                <a th:if="${row.statusRedirect eq T(com.tech.techno.util.Const).STATUS_REDIRECT && row.statusRedirect ne T(com.tech.techno.util.Const).STATUS_VISIBILITY}"
+                   th:href="${row.statusRedirect eq T(com.tech.techno.util.Const).STATUS_REDIRECT?row.route:'#menu_'+row.id}">
+                    <!--<i th:class="${row.faIcon}"></i>-->
+                    <img style="max-height: 20px;max-width: 20px" th:src="${row.faIcon}" alt="">
+                    <span th:text="${row.module}"></span>
+                </a>
+                <ul class="collapse list-unstyled" th:id="'menu_'+${row.id}" th:if="${not #lists.isEmpty(row.modules)}">
+                    <li th:each="sRow : ${row.modules}">
+                        <a th:href="${sRow.statusRedirect eq T(com.tech.techno.util.Const).STATUS_REDIRECT ? sRow.route : '#menu_'+sRow.id }"
+                           th:text="${sRow.module}">
+
+                            <!--<i th:class="${sRow.faIcon}"></i>-->
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+            <li><a href="/dashboard" class="article">Back to Home</a></li>
+        </ul>
+        <div class="sidebar-header" style="position: fixed;z-index: 100">
+            <h5><a href="/logout" class="article">Logout</a></h5>
+            <strong><a style="max-height: 43px;max-width: 43px;margin-right: 160px" href="/logout" class="article">Logout</a></strong>
+
+        </div>
+
+    </nav>
+</th:block>
+<th:block th:fragment="navbar">
+    <nav class="navbar navbar-default" style="position: fixed; !important;min-width:100%;z-index: 100 ">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                    <i class="fa fa-align-left"></i>
+                </button>
+            </div>
+
+        </div>
+    </nav>
+</th:block>
+</body>
+</html>

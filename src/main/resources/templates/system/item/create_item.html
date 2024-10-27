@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Item create</title>
+    <div th:replace="fragments/scripts::scripts">scripts</div>
+    <link rel="shortcut icon" href="/images/logo.jpg"/>
+</head>
+
+<style>
+    .palel-primary {
+        border-color: #bce8f1;
+    }
+
+    .panel-primary > .panel-heading {
+        background: #bce8f1;
+
+    }
+
+    .panel-primary > .panel-body {
+        background-color: #EDEDED;
+    }
+</style>
+<body>
+<div th:replace="fragments/header::header">header</div>
+<div class="wrapper" ng-app="itemApp" ng-controller="itemController">
+    <div th:replace="fragments/navbars::sidebar">header</div>
+    <div id="content" style="width: 100%;overflow:inherit;!important;">
+        <div th:replace="fragments/navbars::navbar">header</div>
+
+            <div class="container-fluid" style="padding-top: 100px">
+                <h3 class="page-heading mb-4">Item</h3>
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <!--<form action="" id="xx">-->
+                            <!--<input name="suplier_name"-->
+                            <!--class=""-->
+                            <!--type="text"-->
+                            <!--placeholder="Supplier Name">-->
+                            <!--</form>-->
+                            <div class="panel-body">
+                                <form class="form-horizontal" method="post" action="/item/saveItem">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="itemName">Item Name
+                                            *</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input id="itemName" name="itemName" class="form-control" type="text"
+                                                   data-validation="required">
+                                            <span id="error_name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="gauge">Gauge</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input id="gauge" name="gauge" class="form-control" type="number">
+                                            <span id="error_gauge" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-4 col-xs-4" for="width">width</label>
+                                        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                            <input id="width" name="width" class="form-control" type="number" placeholder="Feet :-">
+                                            <span id="error_width" class="text-danger"></span>
+                                        </div>
+                                        <label class="col-lg-2 col-md-2 col-sm-4 col-xs-4" for="height">height</label>
+                                        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                            <input id="height" name="height" class="form-control" type="number" placeholder="Feet :-">
+                                            <span id="error_height" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12"
+                                               for="thickness">Thickness</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input id="thickness" name="thickness" class="form-control" type="number">
+                                            <span id="error_thickness" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="cprice">Cost
+                                            Price </label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input id="cprice" name="cprice" class="form-control" type="number">
+                                            <span id="error_cprice" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="sprice">Selling
+                                            Price </label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input id="sprice" name="sprice" class="form-control" type="number">
+                                            <span id="error_sprice" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="rate">Rate
+                                            Price </label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input id="rate" name="rate" class="form-control" type="number">
+                                            <span id="error_rate" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12">Supplier Name *</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <select class="form-control" ng-model="supplier" name="supplier"
+                                                    ng-init="loadSupplier()">
+                                                <option ng-repeat="x in suppliers"
+                                                        ng-selected="supplier == x.id" value="{{x.id}}">
+                                                    {{x.suplier_name}}
+                                                </option>
+                                            </select>
+                                            <span id="error_su" class="text-danger"></span>
+                                            <!--</div>-->
+                                        </div>
+                                        <input type="button" class="btn btn-outline-primary" value="+ New"
+                                               data-toggle="modal" data-target="#suplier"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12">Category</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <select class="form-control" ng-model="category" name="category"
+                                                    ng-init="loadCategory()"
+                                                    ng-change="loadSubCategory()">
+                                                <option ng-repeat="x in loadCategorys"
+                                                        ng-selected="category == x.id" value="{{x.id}}">
+                                                    {{x.description}}
+                                                </option>
+                                            </select>
+                                            <span id="error_ca" class="text-danger"></span>
+                                        </div>
+                                        <input type="button" class="btn btn-outline-primary" value="+ New"
+                                               data-toggle="modal" data-target="#category"/>
+
+                                        <div style="margin-top: 10%" class="modal" id="category" role="dialog">
+                                            <div class="modal-dialog">
+
+                                                <!-- Modal content-->
+
+                                                <div class="modal-content">
+                                                    <h4 class="modal-title col-sm-10">Create Category</h4>
+                                                    <div class="modal-body">
+                                                        <label>Description</label>
+                                                        <input type="text" ng-model="catogoryDescrpt"
+                                                               th:field="*{category.description}" id="cat"
+                                                               class="form-control"/>
+                                                        <span id="error_cat" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" ng-click="saveCategory()"
+                                                                class="btn btn-default btn-xs" id="savecat"
+                                                                data-dismiss="modal">save
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12">Sub
+                                            Category</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <select class="form-control" ng-model="subcategory" name="subcategory"
+                                                    ng-change="loadSubCategory()">
+                                                <option ng-repeat="x in SubCategorys"
+                                                        ng-selected="subcategory == x.id" value="{{x.id}}">
+                                                    {{x.description}}
+                                                </option>
+                                            </select>
+                                            <span id="error_gender" class="text-danger"></span>
+                                        </div>
+                                        <input type="button" class="btn btn-outline-primary" value="+ New"
+                                               data-toggle="modal" data-target="#subcategory"/>
+
+                                        <div style="margin-top: 10%" class="modal" id="subcategory" role="dialog">
+                                            <div class="modal-dialog">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <h4 class="modal-title col-sm-10">Create Subcategory</h4>
+                                                    <div class="modal-body">
+                                                        <label>category</label>
+                                                        <select class="form-control" ng-model="category" id="catsub"
+                                                                ng-init="loadCategory()"
+                                                                ng-change="loadSubCategory()">
+                                                            <option ng-repeat="x in loadCategorys"
+                                                                    ng-selected="category == x.id" value="{{x.id}}">
+                                                                {{x.description}}
+                                                            </option>
+                                                        </select>
+                                                        <span id="error_subcatcat" class="text-danger"></span>
+                                                        <label>subcategory</label>
+                                                        <input type="text" ng-model="subCatogoryDescrpt" id="subcat"
+                                                               class="form-control"/>
+
+                                                        <span id="error_subcat" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" ng-click="saveSubcategory()"
+                                                                class="btn btn-default btn-xs" id="savesubcat"
+                                                                data-dismiss="modal">save
+                                                        </button>
+                                                        <button type="button"
+                                                                class="btn btn-default btn-xs"
+                                                                data-dismiss="modal">colse
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12">Discription</label>
+                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                            <textarea name="remark" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <button id="submit" type="submit" value="submit" class="btn btn-primary center">
+                                        Submit
+                                    </button>
+
+                                </form>
+                                <div style="margin-top: 8%" class="modal" id="suplier" role="dialog">
+                                    <form action="" method="post" id="suppier_form">
+                                        <div class="modal-dialog">
+
+                                            <!-- suplier Modal content-->
+
+                                            <div class="modal-content">
+
+                                                <h4 class="modal-title col-sm-10">Create Supplier</h4>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="status" value="1">
+                                                    <input name="suplier_name" id="suplier_name"
+                                                           class="form-control"
+                                                           type="text"
+                                                           placeholder="Supplier Name">
+                                                    <span id="error_supname" class="text-danger"></span><br>
+
+                                                    <input id="company" name="company" class="form-control"
+                                                           type="text"
+                                                           placeholder="Company Name">
+                                                    <span id="error_lastname" class="text-danger"></span><br>
+
+                                                    <input id="address" name="address" class="form-control"
+                                                           type="text" placeholder="Addres">
+                                                    <span id="error_age" class="text-danger"></span><br>
+
+                                                    <input id="credit_limit" name="creditLimit"
+                                                           class="form-control"
+                                                           type="text" placeholder="Credit Limit">
+                                                    <span id="error_credit_limit"
+                                                          class="text-danger"></span><br>
+
+                                                    <input type="text" id="credit_period" name="creditPeriod"
+                                                           class="form-control" placeholder="Credit Period">
+                                                    <span id="error_nicno" class="text-danger"></span><br>
+
+                                                    <input type="text" id="email" name="email"
+                                                           class="form-control" placeholder="Email">
+                                                    <span id="error_email" class="text-danger"></span><br>
+
+                                                    <input type="text" id="phone" name="mobileNo"
+                                                           class="form-control"
+                                                           placeholder="Phone Number">
+                                                    <span id="error_phone" class="text-danger"></span>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" ng-click="saveSupplier()"
+                                                                class="btn btn-default btn-xs" id="savesup"
+                                                                data-dismiss="modal">save
+                                                        </button>
+                                                        <button type="button"
+                                                                class="btn btn-default btn-xs"
+                                                                data-dismiss="modal">colse
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" th:inline="javascript">
+
+    var app = angular.module('itemApp', []);
+    app.controller('itemController', function ($scope, $http) {
+
+        $scope.loadCategory = function () {
+            $http({
+                url: '/api/getcategory',
+                method: 'GET'
+            }).then(function (response) {
+                $scope.loadCategorys = response.data;
+            })
+        }
+
+        $scope.loadSubCategory = function () {
+            $http({
+                url: '/api/getsubcategory/' + $scope.category,
+                method: 'GET'
+            }).then(function (response) {
+                $scope.SubCategorys = response.data;
+            })
+        }
+
+        $scope.saveCategory = function () {
+
+            if ($('#cat').val() != '') {
+                $http({
+                    method: 'GET',
+                    url: '/api/saveCatogory/' + $scope.catogoryDescrpt,
+                }).then(function (response) {
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Successfully inserted record!',
+                        position: 'topCenter',
+                        transitionIn: 'fadeInDown',
+                    });
+                    $scope.loadCategory();
+                    $scope.category = response.data.id
+                }, function (error) {
+                    var msg = error.responseJSON.error;
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Illegal operation "' + msg + '"',
+                        position: 'topCenter',
+                        transitionIn: 'fadeInDown',
+                    });
+                });
+            }
+        }
+
+        $scope.saveSubcategory = function () {
+            if ($('#subcat').val() != '') {
+                $http({
+                    method: 'GET',
+                    url: '/api/saveSubcatogory/' + $scope.category + '/' + $scope.subCatogoryDescrpt,
+                }).then(function (response) {
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Successfully inserted record!',
+                        position: 'topCenter',
+                        transitionIn: 'fadeInDown',
+                    });
+
+                    $scope.loadSubCategory();
+                    $scope.subcategory = response.data.id
+                }, function (error) {
+                    var msg = error.responseJSON.error;
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Illegal operation "' + msg + '"',
+                        position: 'topCenter',
+                        transitionIn: 'fadeInDown',
+                    });
+                });
+            }
+        }
+
+        $scope.loadSupplier = function () {
+            $http({
+                url: '/api/getSupplier',
+                method: 'GET'
+            }).then(function (response) {
+                $scope.suppliers = response.data;
+//                console.log($scope.suppliers)
+            })
+        }
+        $scope.saveSupplier = function () {
+
+            if ($('#suplier_name').val() != '') {
+                $http({
+                    method: 'POST',
+                    url: '/api/saveSupplier/',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: $("#suppier_form").serialize(),
+                }).success(function (response) {
+
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Successfully inserted record!',
+                        position: 'topCenter',
+                        transitionIn: 'fadeInDown',
+                    });
+
+                    $scope.loadSupplier();
+                    $scope.supplier = response.id
+                }).error(function (error) {
+                    var msg = error.responseJSON.error;
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Illegal operation "' + msg + '"',
+                        position: 'topCenter',
+                        transitionIn: 'fadeInDown',
+                    });
+                });
+            }
+        }
+
+    });
+
+    $(document).ready(function () {
+        $flag = 1;
+        $("#itemName").focusout(function () {
+
+            if ($(this).val().length < 3) {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_name").text("* You have to enter your item name than 3 letter!");
+            }
+            else if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_name").text("* You have to enter your item name!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_name").text("");
+
+            }
+        });
+        $("#supname").focusout(function () {
+            if ($(this).val().length < 3) {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_supname").text("* You have to enter your supplier name than 3 letter!");
+            }
+            else if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_supname").text("* You have to enter your supplier name!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_supname").text("");
+            }
+        });
+
+        $("#cat").focusout(function () {
+            if ($(this).val().length < 3) {
+                $(this).css("border-color", "#FF0000");
+                $('#savecat').attr('disabled', true);
+                $("#error_cat").text("* You have to enter your category description than 3 letter!");
+            }
+            else if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#savecat').attr('disabled', true);
+                $("#error_cat").text("* You have to enter your category description!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#savecat').attr('disabled', false);
+                $("#error_supname").text("");
+            }
+        });
+
+//        $("#subcat").focusout(function () {
+//            if ($(this).val().length < 3) {
+//                $(this).css("border-color", "#FF0000");
+//                $('#savesubcat').attr('disabled', true);
+//                $("#error_subcat").text("* You have to enter your subcategory description than 3 letter!");
+//            }
+//            else if ($(this).val() == '') {
+//                $(this).css("border-color", "#FF0000");
+//                $('#savesubcat').attr('disabled', true);
+//                $("#error_subcat").text("* You have to enter your subcategory description!");
+//
+//            }
+//            else {
+//                $(this).css("border-color", "#2eb82e");
+//                $('#savecat').attr('disabled', false);
+//                $("#error_subcatcat").text("");
+//            }
+//        });
+
+        $("#catsub").focusout(function () {
+
+            if ($(this).val() == undefined) {
+                $(this).css("border-color", "#FF0000");
+                $('#savesubcat').attr('disabled', true);
+                $("#error_subcatcat").text("* You have to select your category description!");
+
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#savecat').attr('disabled', false);
+                $("#error_subcatcat").text("");
+            }
+        });
+
+        $("#dob").focusout(function () {
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_dob").text("* You have to enter your Date of Birth!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_dob").text("");
+            }
+        });
+
+        $("#sprice").focusout(function () {
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_sprice").text("* You have to enter your selling price!");
+            } else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_sprice").text("");
+            }
+        });
+
+        $("#cprice").focusout(function () {
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_cprice").text("* You have to enter your cost price!");
+            } else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_cprice").text("");
+            }
+        });
+
+        $("#rate").focusout(function () {
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_rate").text("* You have to enter your Rate!");
+            } else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_rate").text("");
+            }
+        });
+
+        $("#gauge").focusout(function () {
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_gauge").text("* You have to enter your Gauge!");
+            } else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_gauge").text("");
+            }
+        });
+
+        $("#thickness").focusout(function () {
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_thickness").text("* You have to enter your Thickness!");
+            } else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_thickness").text("");
+            }
+        });
+
+//        $("#nicno").focusout(function () {
+//            if ($(this).val().length < 10) {
+//                $(this).css("border-color", "#FF0000");
+//                $('#submit').attr('disabled', true);
+//                $("#error_nicno").text("* You have to enter your NIC NO  than 10 letter!");
+//            }
+//
+//            if ($(this).val() == '') {
+//                $(this).css("border-color", "#FF0000");
+//                $('#submit').attr('disabled', true);
+//                $("#error_nicno").text("* You have to enter your NIC NO!");
+//            }
+//            else {
+//                $(this).css("border-color", "#2eb82e");
+//                $('#submit').attr('disabled', false);
+//                $("#error_nicno").text("");
+//            }
+//        });
+
+        $("#gender").focusout(function () {
+            $(this).css("border-color", "#2eb82e");
+
+        });
+
+        $("#phone").focusout(function () {
+            $pho = $("#phone").val();
+
+            if ($(this).val().length < 10) {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number  than 10 letter!");
+            }
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number!");
+            }
+            else if ($pho.length != 10) {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* Lenght of Phone Number Should Be Ten");
+            }
+            else if (!$.isNumeric($pho)) {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* Phone Number Should Be Numeric");
+            }
+            else {
+                $(this).css({"border-color": "#2eb82e"});
+                $('#savesup').attr('disabled', false);
+                $("#error_phone").text("");
+            }
+
+        });
+
+        $("#submit").click(function () {
+
+            if ($("#itemName").val().length < 3) {
+                $("#itemName").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_name").text("* You have to enter your item name  than 3 letter!");
+            }
+
+            if ($("#supname").val().length < 3) {
+                $("#itemName").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_supname").text("* You have to enter your supplier name  than 3 letter!");
+            }
+            if ($("#phone").val().length < 3) {
+                $("#itemName").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number  than 10 letter!");
+            }
+
+            if ($("#itemName").val() == '') {
+                $("#itemName").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_name").text("* You have to enter your first name!");
+            }
+            if ($("#supname").val() == '') {
+                $("#supname").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_supname").text("* You have to enter your Last name!");
+            }
+            if ($("#dob").val() == '') {
+                $("#dob").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_dob").text("* You have to enter your Date of Birth!");
+            }
+
+            if ($("#phone").val() == '') {
+                $("#phone").css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number!");
+            }
+        });
+        $('#savecat').click(function () {
+
+            if ($("#cat").val() == '') {
+                $("#cat").css("border-color", "#FF0000");
+                $('#savecat').attr('disabled', true);
+                $("#error_cat").text("* You have to enter your category description!");
+            }
+
+        });
+
+
+//        supplier
+        $("#suplier_name").focusout(function () {
+
+            if ($(this).val().length < 3) {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_supname").text("* You have to enter your more Supplier than 3 letter!");
+            }
+            else if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_supname").text("* You have to enter your Supplier!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#savesup').attr('disabled', false);
+                $("#error_supname").text("");
+
+            }
+        });
+        $("#company").focusout(function () {
+            if ($(this).val().length < 3) {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_lastname").text("* You have to enter your more Company than 3 letter!");
+            }
+            else if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_lastname").text("* You have to enter your Company!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#savesup').attr('disabled', false);
+                $("#error_lastname").text("");
+            }
+        });
+        $("#credit_limit").focusout(function () {
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_credit_limit").text("* You have to enter your Credit Limit!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#savesup').attr('disabled', false);
+                $("#error_credit_limit").text("");
+            }
+        });
+
+
+        $("#phone").focusout(function () {
+            $pho = $("#phone").val();
+
+            if ($(this).val().length < 10) {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number more than 10 letter!");
+            }
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number!");
+            }
+            else if ($pho.length != 10) {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* Lenght of Phone Number Should Be Ten");
+            }
+            else if (!$.isNumeric($pho)) {
+                $(this).css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* Phone Number Should Be Numeric");
+            }
+            else {
+                $(this).css({"border-color": "#2eb82e"});
+                $('#savesup').attr('disabled', false);
+                $("#error_phone").text("");
+            }
+
+        });
+
+        $("#savesup").click(function () {
+
+            if ($("#suplier_name").val().length < 3) {
+                $("#suplier_name").css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_supname").text("* You have to enter your Supplier more than 3 letter!");
+            }
+
+            if ($("#company").val().length < 3) {
+                $("#company").css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_lastname").text("* You have to enter your last name more than 3 letter!");
+            }
+            if ($("#phone").val().length < 3) {
+                $("#phone").css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number more than 10 letter!");
+            }
+
+            if ($("#suplier_name").val() == '') {
+                $("#suplier_name").css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_supname").text("* You have to enter your Supplier!");
+            }
+            if ($("#company").val() == '') {
+                $("#company").css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_lastname").text("* You have to enter your Company!");
+            }
+            if ($("#credit_limit").val() == '') {
+                $("#credit_limit").css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_credit_limit").text("* You have to enter your Credit Limit!");
+            }
+
+            if ($("#phone").val() == '') {
+                $("#phone").css("border-color", "#FF0000");
+                $('#savesup').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number!");
+            }
+        });
+    });
+
+</script>
+</html>

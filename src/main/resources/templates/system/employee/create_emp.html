@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Emp list</title>
+    <div th:replace="fragments/scripts::scripts">scripts</div>
+    <link rel="shortcut icon" href="/images/logo.jpg"/>
+</head>
+
+<style>
+    .palel-primary {
+        border-color: #bce8f1;
+    }
+
+    .panel-primary > .panel-heading {
+        background: #bce8f1;
+
+    }
+
+    .panel-primary > .panel-body {
+        background-color: #EDEDED;
+    }
+</style>
+<body>
+<div th:replace="fragments/header::header">header</div>
+<div class="wrapper">
+    <div th:replace="fragments/navbars::sidebar">header</div>
+    <div id="content" style="width: 100%;overflow:inherit;!important;">
+        <div th:replace="fragments/navbars::navbar">header</div>
+
+                <div class="container-fluid" style="padding-top: 100px">
+                <h3 class="page-heading mb-4">Employees</h3>
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <form class="form-horizontal" method="post" action="/employee/saveEmp">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="myName">First Name
+                                            *</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input id="myName" name="firstName" class="form-control" type="text"
+                                                   data-validation="required">
+                                            <span id="error_name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="lastname">Last Name
+                                            *</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input id="lastname" name="lastName" class="form-control" type="text"
+                                                   data-validation="email" >
+                                            <span id="error_lastname" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="surename">Sure Name </label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input id="surename" name="surname" class="form-control" type="text"  placeholder="optional">
+                                            <span id="error_age" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" >Date Of Birth
+                                            *</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input type="text" class="datepicker form-control" th:field="*{defaltSave.defaltDate}"
+                                                   id="dateToInput"
+                                                   placeholder="Date Of Birth" name="dob" style="width: 100%; height: 32px;" required>
+
+                                            <span id="error_dob" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" >NIC NO
+                                            *</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <input type="text" id="nicno" name="nicNo" class="form-control">
+                                            <span id="error_nicno" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="gender">Gender</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <select name="gender" id="gender" class="form-control">
+                                                <option value="0"></option>
+                                                <option value="1">MALE</option>
+                                                <option value="2">FEMALE</option>
+                                            </select>
+                                            <span id="error_gender" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-lg-2 col-md-2 col-sm-6 col-xs-12" for="phone">Phone Number-->
+                                            <!--*</label>-->
+                                        <!--<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">-->
+                                            <!--<input type="text" id="phone" name="phone" class="form-control">-->
+                                            <!--<span id="error_phone" class="text-danger"></span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-6 col-xs-12">Discription</label>
+                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                            <textarea name="remark" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <button id="submit" type="submit" value="submit" class="btn btn-primary center">
+                                        Submit
+                                    </button>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" th:inline="javascript">
+
+    $(document).ready(function () {
+
+        $('.datepicker').datepicker({
+            dateFormat: "yy-mm-dd",
+            maxDate: new Date()
+        });
+        $flag = 1;
+        $("#myName").focusout(function () {
+
+            if ($(this).val().length<3){
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_name").text("* You have to enter your more first name than 3 letter!");
+            }
+             else if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_name").text("* You have to enter your first name!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_name").text("");
+
+            }
+        });
+        $("#lastname").focusout(function () {
+            if ($(this).val().length<3){
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_lastname").text("* You have to enter your more Last name than 3 letter!");
+            }
+            else if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_lastname").text("* You have to enter your Last name!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_lastname").text("");
+            }
+        });
+        $("#dob").focusout(function () {
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_dob").text("* You have to enter your Date of Birth!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_dob").text("");
+            }
+        });
+        $("#nicno").focusout(function () {
+            if ($(this).val().length<10){
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_nicno").text("* You have to enter your NIC NO more than 10 letter!");
+            }
+
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_nicno").text("* You have to enter your NIC NO!");
+            }
+            else {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled', false);
+                $("#error_nicno").text("");
+            }
+        });
+
+        $("#gender").focusout(function () {
+            $(this).css("border-color", "#2eb82e");
+
+        });
+
+        $("#phone").focusout(function () {
+            $pho = $("#phone").val();
+
+            if ($(this).val().length<10){
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number more than 10 letter!");
+            }
+            if ($(this).val() == '') {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number!");
+            }
+            else if ($pho.length != 10) {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_phone").text("* Lenght of Phone Number Should Be Ten");
+            }
+            else if (!$.isNumeric($pho)) {
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_phone").text("* Phone Number Should Be Numeric");
+            }
+            else {
+                $(this).css({"border-color": "#2eb82e"});
+                $('#submit').attr('disabled', false);
+                $("#error_phone").text("");
+            }
+
+        });
+
+        $("#submit").click(function () {
+
+            if ($("#myName").val().length<3){
+                $("#myName").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_name").text("* You have to enter your first name more than 3 letter!");
+            }
+
+            if ($("#lastname").val().length<3){
+                $("#myName").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_lastname").text("* You have to enter your last name more than 3 letter!");
+            }
+            if ($("#phone").val().length<3){
+                $("#myName").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number more than 10 letter!");
+            }
+
+            if ($("#myName").val() == '') {
+                $("#myName").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_name").text("* You have to enter your first name!");
+            }
+            if ($("#lastname").val() == '') {
+                $("#lastname").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_lastname").text("* You have to enter your Last name!");
+            }
+            if ($("#dob").val() == '') {
+                $("#dob").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_dob").text("* You have to enter your Date of Birth!");
+            }
+
+            if ($("#phone").val() == '') {
+                $("#phone").css("border-color", "#FF0000");
+                $('#submit').attr('disabled', true);
+                $("#error_phone").text("* You have to enter your Phone Number!");
+            }
+        });
+    });
+</script>
+</html>

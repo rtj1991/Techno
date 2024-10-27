@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Techno</title>
+    <div th:replace="fragments/scripts::logscripts">scripts</div>
+    <link rel="shortcut icon" href="/images/logo.jpg"/>
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('login/images/img-01.jpg');">
+        <div class="wrap-login100 p-t-190 p-b-30">
+            <form class="login100-form validate-form" method="post" action="/login">
+
+                <span class="login100-form-title p-t-20 p-b-45">
+
+					</span>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Username is required">
+                    <input type="text" id="uname" name="username" class="form-control" placeholder="Username" required
+                           autofocus>
+
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input type="password" id="pwd" name="password" class="form-control" placeholder="Password"
+                           required>
+
+                </div>
+
+                <div class="container-login100-form-btn p-t-10">
+
+                    <button class="login100-form-btn" type="submit">NEXT</button>
+                </div>
+
+                <div class="text-center w-full p-t-25 p-b-230">
+                    <a href="#" class="txt1">
+                        Forgot Username / Password?
+                    </a>
+                </div>
+
+                <div class="text-center w-full">
+                    <a class="txt1" href="#">
+                        Create new account
+                        <i class="fa fa-long-arrow-right"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Side Bar</title>
+</head>
+<body>
+
+<th:block th:fragment="drawer">
+    <div class="row sidepanel" id="cell-sidebar" >
+
+        <div class="sider" id="scrollable">
+            <ul class="v-menu context block-shadow-impact min-size-required" id="meni" style="border: solid thin lavender">
+                <li class="menu-title"></li>
+                <li><a href="#"><span class="mif-home icon"></span> Dashboard</a></li>
+                <li class="divider"></li>
+                <li><a th:href="@{/admin/geno}"><span class="mif-user icon"></span> Profile</a></li>
+                <li class="divider"></li>
+                <li class="divider"></li>
+                <li class="menu-title">Management</li>
+                <!-- Organization Management -->
+                <li>
+                    <a href="#" class="dropdown-toggle"><span class="mif-my-location icon"></span> Organization</a>
+                    <ul class="d-menu context" data-role="dropdown" id="sub-menu-dealer">
+                        <li class="menu-title">Locations</li>
+                        <li><a href="#"><span class="mif-user-plus icon"></span>New Location</a></li>
+                        <li><a href="#"><span class="mif-tree icon"></span>List Locations</a></li>
+                        <li><a href="#"><span class="mif-ship icon"></span>Reports</a></li>
+
+                        <li class="menu-title">Company</li>
+                        <li><a href="#"><span class="mif-user-plus icon"></span>New Company</a></li>
+                        <li><a href="#"><span class="mif-tree icon"></span>List Companies</a></li>
+                        <li><a href="#"><span class="mif-tree icon"></span>Reports</a></li>
+
+
+                        <li class="menu-title">Department</li>
+                        <li><a href="#"><span class="mif-file-archive icon"></span>New Department</a></li>
+                        <li><a href="#"><span class="mif-list icon"></span>List Departments</a></li>
+                        <li><a href="#"><span class="mif-list icon"></span>Reports</a></li>
+                    </ul>
+                </li>
+                <!--Employee Management -->
+                <li>
+                    <a href="#" class="dropdown-toggle"><span class="mif-my-location icon"></span>Employee</a>
+                    <ul class="d-menu context" data-role="dropdown" id="sub-menu-dealer">
+
+                        <li><a href="#"><span class="mif-user-plus icon"></span>New Enrollment</a></li>
+                        <li><a href="#"><span class="mif-tree icon"></span>Manage Employee</a></li>
+                        <li><a href="#"><span class="mif-ship icon"></span>Profile</a></li>
+                        <li><a href="#"><span class="mif-user-plus icon"></span>Assign Work Week</a></li>
+                        <li><a href="#"><span class="mif-tree icon"></span>List of Employees</a></li>
+                        <li><a href="#"><span class="mif-tree icon"></span>Reports</a></li>
+
+                    </ul>
+                </li>
+
+                <!--Job Details Management  -->
+                <li>
+                    <a href="#" class="dropdown-toggle"><span class="mif-my-location icon"></span>Job Management</a>
+                    <ul class="d-menu context" data-role="dropdown" id="sub-menu-dealer">
+
+                        <li><a href="#"><span class="mif-user-plus icon"></span>Pay Grades</a></li>
+                        <li><a href="#"><span class="mif-tree icon"></span>Job Titles</a></li>
+                        <li><a href="#"><span class="mif-ship icon"></span>Employee Job</a></li>
+                        <li><a href="#"><span class="mif-user-plus icon"></span>Work Week</a></li>
+                        <li><a href="#"><span class="mif-tree icon"></span>Reports</a></li>
+
+                    </ul>
+                </li>
+
+                <li class="menu-title">Transactions</li>
+                <li>
+                    <a href="#" class="dropdown-toggle"><span class="mif-my-location icon"></span> Invoice</a>
+                    <ul class="d-menu context" data-role="dropdown" id="sub-menu-inv">
+                        <li class="menu-title">Invoice Management</li>
+                        <li><a href="#"><span class="mif-search icon"></span>Search Invoice</a></li>
+                        <li><a href="#"><span class="mif-dollars icon"></span>New Invoice</a></li>
+                        <li><a href="#"><span class="mif-dollar icon"></span>Customer Invoice</a></li>
+                        <li><a href="#"><span class="mif-coins icon"></span>Manage Invoice</a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+
+                <li class="menu-title">Second Title</li>
+                <li><a href="#"><span class="mif-user icon"></span> Profile</a></li>
+                <li><a href="#"><span class="mif-calendar icon"></span> Calendar</a></li>
+                <li><a href="#"><span class="mif-image icon"></span> Photo</a></li>
+                <li class="divider"></li>
+                <li class="menu-title">Third Title</li>
+                <li><a href="#"><span class="mif-bubbles icon"></span> Community</a></li>
+                <li class="menu-title">First Title</li>
+                <li><a href="#"><span class="mif-home icon"></span> Home</a></li>
+                <li class="divider"></li>
+                <li class="menu-title">Second Title</li>
+                <li><a href="#"><span class="mif-user icon"></span> Profile</a></li>
+                <li><a href="#"><span class="mif-calendar icon"></span> Calendar</a></li>
+                <li><a href="#"><span class="mif-image icon"></span> Photo</a></li>
+                <li class="divider"></li>
+                <li class="menu-title">Third Title</li>
+                <li><a href="#"><span class="mif-bubbles icon"></span> Community</a></li>
+                <li class="menu-title">First Title</li>
+                <li><a href="#"><span class="mif-home icon"></span> Home</a></li>
+                <li class="divider"></li>
+                <li class="menu-title">Second Title</li>
+                <li><a href="#"><span class="mif-user icon"></span> Profile</a></li>
+                <li><a href="#"><span class="mif-calendar icon"></span> Calendar</a></li>
+                <li><a href="#"><span class="mif-image icon"></span> Photo</a></li>
+                <li class="divider"></li>
+                <li class="menu-title">Third Title</li>
+                <li>
+                    <a href="#" class="dropdown-toggle"><span class="mif-my-location icon"></span> Location</a>
+                    <ul class="d-menu" data-role="dropdown">
+                        <li class="menu-title">Title for dropdown</li>
+                        <li><a href="#">Apple</a></li>
+                        <li><a href="#">Banana</a></li>
+                        <li>
+                            <a href="#" class="dropdown-toggle">Еще...</a>
+                            <ul class="d-menu" data-role="dropdown">
+                                <li><a href="#">Appale</a></li>
+                                <li><a href="#">Banana</a></li>
+                                <li>
+                                </li>
+                                <li class="divider"></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</th:block>
+
+</body>
+
+</html>

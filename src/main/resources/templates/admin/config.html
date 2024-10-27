@@ -1,0 +1,140 @@
+<!DOCTYPE html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Techno</title>
+
+    <th:block th:replace="fragments/scripts::scripts">scripts</th:block>
+    <!--<link rel="stylesheet" th:href="@{/css/wizad.css}">-->
+</head>
+<body>
+<div class="container">
+    <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Please sign up for Bootsnipp <small>It's free!</small></h3>
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/}" method="post" role="form">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-sm" id="firstnamesignup" name="usernamesignup" required="required" type="text"
+                                           placeholder="First Name" th:field="*{user.firstName}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-sm" id="lastnamesignup" name="usernamesignup" required="required" type="text"
+                                           placeholder="Last Name" th:field="*{user.lastName}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-sm" id="nic" name="usernamesignup" required="required" type="text"
+                                           placeholder="NIC" th:field="*{user.nic}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-sm" id="usernamesignup" name="usernamesignup" required="required" type="text"
+                                           placeholder="UserName" th:field="*{user.userName}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-sm" id="password" name="password" required="required" type="password"
+                                           placeholder="password" th:field="*{user.password}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-sm" id="con-pwd" type="password" placeholder="re-password" required="required" oninput="check(this)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Register" class="btn btn-info btn-block">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!--<div class="container">-->
+
+    <!--<header>-->
+        <!--<h1>Login and Registration Form</h1>-->
+
+    <!--</header>-->
+        <!--<div id="container_demo">-->
+            <!--&lt;!&ndash; hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  &ndash;&gt;-->
+            <!--&lt;!&ndash;<a class="hiddenanchor" id="toregister"></a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a class="hiddenanchor" id="tologin"></a>&ndash;&gt;-->
+            <!--<div id="wrapper">-->
+                <!--<div id="register" class="animate form" >-->
+                    <!--<form th:action="@{/}" method="post" autocomplete="on">-->
+                        <!--<h1> Sign up </h1>-->
+                        <!--<p>-->
+                            <!--<label for="usernamesignup" class="uname">First Name</label>-->
+                            <!--<input id="usernamesignup" name="usernamesignup" required="required" type="text"-->
+                                   <!--placeholder="First Name" th:field="*{user.firstName}"/>-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label for="usernamesignup" class="uname">Last Name</label>-->
+                            <!--<input id="usernamesignup" name="usernamesignup" required="required" type="text"-->
+                                   <!--placeholder="First Name" th:field="*{user.lastName}"/>-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label for="usernamesignup" class="uname">NIC</label>-->
+                            <!--<input id="usernamesignup" name="usernamesignup" required="required" type="text"-->
+                                   <!--placeholder="First Name" th:field="*{user.nic}"/>-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label for="usernamesignup" class="uname">UserName</label>-->
+                            <!--<input id="usernamesignup" name="usernamesignup" required="required" type="text"-->
+                                   <!--placeholder="First Name" th:field="*{user.userName}"/>-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label for="password" class="uname">password</label>-->
+                            <!--<input id="password" name="password" required="required" type="password"-->
+                                   <!--placeholder="First Name" th:field="*{user.password}"/>-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label for="con-pwd" class="uname">Confirm Password</label>-->
+                            <!--<input id="con-pwd" type="password" required="required" oninput="check(this)">-->
+                        <!--</p>-->
+                        <!--<p class="signin button">-->
+                            <!--<input type="submit" value="Sign up"/>-->
+                        <!--</p>-->
+                        <!--<p class="change_link">-->
+                            <!--Already a member ?-->
+                            <!--<a href="#tologin" class="to_register"> Go and log in </a>-->
+                        <!--</p>-->
+                    <!--</form>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</div>-->
+
+<!--</div>-->
+
+</body>
+</html>

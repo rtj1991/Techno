@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Techno | 403</title>
+    <div th:replace="fragments/scripts::scripts">scripts</div>
+</head>
+<body>
+
+<div class="container" style="margin-top: 15%">
+    <div class="panel panel-danger">
+        <div class="panel-heading" style="font-size: large;font-weight: bold">
+            <span th:text="${e instanceof T(org.springframework.security.access.AccessDeniedException)} ? ${e.getMessage()} : 'Internal Server Error'">Error</span>
+        </div>
+        <div class="panel-body text-center">
+            <div th:if="${e instanceof T(org.springframework.security.access.AccessDeniedException)}">
+                <h2 th:text="${e.getMessage()}"></h2>
+                <p>You are not authorized for access this page. Contact your system administrator</p>
+            </div>
+
+            <div th:unless="${e instanceof T(org.springframework.security.access.AccessDeniedException)}">
+                <h2>Internal Server Error</h2>
+                <h5 th:text="${e.getMessage()}"></h5>
+                <p>Sorry for the inconvenience. please send us feedback</p>
+            </div>
+
+            <div class="section"></div>
+            <!--back url (@Request mapping)-->
+            <a th:href="${back_url}" class="btn btn-primary">back</a>
+            &nbsp;&nbsp;
+            <a th:href="@{/dashboard}" class="btn btn-success">dashboard</a>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

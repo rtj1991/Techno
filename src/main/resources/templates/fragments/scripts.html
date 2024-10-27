@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Scripts</title>
+
+</head>
+<body>
+
+<th:block th:fragment="scripts">
+    <!--java script-->
+    <script th:src="@{/js/jquery-2.1.1.min.js}" type="application/javascript"></script>
+    <script th:src="@{/jquery-ui/jquery-ui.js}" type="application/javascript"></script>
+    <script th:src="@{/js/wickedpicker.js}" type="application/javascript"></script>
+    <script th:src="@{/js/popper.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/bootstrap.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/tether.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/angular.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/bootbox.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/d3.v4.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/sweetalert2.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/bootstrap-tagsinput.js}" type="application/javascript"></script>
+    <script th:src="@{/js/bootstrap-tagsinput-angular.js}" type="application/javascript"></script>
+    <script th:src="@{/js/iziToast.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/bootstrap-select.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/xls.core.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/xlsx.core.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/modernizr.custom.js}" type="application/javascript"></script>
+    <script th:src="@{/js/timedropper.js}" type="application/javascript"></script>
+    <script th:src="@{/js/highcharts/highcharts.js}" type="application/javascript"></script>
+    <script th:src="@{/js/highcharts/series-label.js}" type="application/javascript"></script>
+    <script th:src="@{/js/highcharts/exporting.js}" type="application/javascript"></script>
+    <script th:src="@{/js/highcharts/export-data.js}" type="application/javascript"></script>
+    <script th:src="@{/js/highcharts/variable-pie.js}" type="application/javascript"></script>
+
+    <!--Cascading Style Sheet-->
+    <link rel="stylesheet" th:href="@{/css/fontawesome/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sweetalert2.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/jquery-ui/jquery-ui.css}">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-tagsinput.css}">
+    <link rel="stylesheet" th:href="@{/css/iziToast.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/css/wickedpicker.css}">
+    <link rel="stylesheet" th:href="@{/css/timedropper.css}">
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCMjmkCfcHbMsVduBfNsJyfLapFt1k-6cw",
+            authDomain: "water-erp.firebaseapp.com",
+            databaseURL: "https://water-erp.firebaseio.com",
+            projectId: "water-erp",
+            storageBucket: "",
+            messagingSenderId: "956840470617"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121397609-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-121397609-1');
+    </script>
+
+</th:block>
+
+<th:block th:fragment="logscripts">
+    <script th:src="@{/login/vendor/jquery/jquery-3.2.1.min.js}" type="application/javascript"></script>
+    <script th:src="@{/login/vendor/bootstrap/js/popper.js}" type="application/javascript"></script>
+    <script th:src="@{/login/vendor/bootstrap/js/bootstrap.min.js}" type="application/javascript"></script>
+    <script th:src="@{/login/vendor/select2/select2.min.js}" type="application/javascript"></script>
+    <script th:src="@{/login/js/main.js}" type="application/javascript"></script>
+
+
+
+
+    <link rel="stylesheet" th:href="@{/login/images/icons/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/login/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
+    <link rel="stylesheet" th:href="@{/login/vendor/animate/animate.css}">
+    <link rel="stylesheet" th:href="@{/login/vendor/css-hamburgers/hamburgers.min.css}">
+    <link rel="stylesheet" th:href="@{/login/vendor/select2/select2.min.css}">
+    <link rel="stylesheet" th:href="@{/login/css/util.css}">
+    <link rel="stylesheet" th:href="@{/login/css/main.css}">
+
+</th:block>
+
+</body>
+
+</html>
